@@ -132,6 +132,17 @@ function resizeCanvas() {
     
 
 window.onload = function() {
+	
+	let fsrq = false;
+	document.body.onclick = function(e) {
+		if (fsrq) return;
+		if (document.fullscreenElement) {
+			document.exitFullscreen();
+		} else {
+			fsrq = true;
+			document.body.requestFullscreen().then(_ => fsrq = false);
+		}
+	};
 
 
     canvas = document.getElementById( "gl-canvas" );
@@ -469,17 +480,6 @@ function quad(a, b, c, d,t,f)
 		texCoordsArray.push(texCoord[t][(indices2[i]+2*(f&&!t))%4]);
     }
 }
-
-let fsrq = false;
-document.body.onclick = function(e) {
-	if (fsrq) return;
-	if (document.fullscreenElement) {
-		document.exitFullscreen();
-	} else {
-		fsrq = true;
-		document.body.requestFullscreen().then(_ => fsrq = false);
-	}
-};
 
 var render = function(){
 
