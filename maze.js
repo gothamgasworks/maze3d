@@ -470,13 +470,24 @@ function quad(a, b, c, d,t,f)
     }
 }
 
+let fsrq = false;
+document.body.onclick = function(e) {
+	if (fsrq) return;
+	if (document.fullscreenElement) {
+		document.exitFullscreen();
+	} else {
+		fsrq = true;
+		document.body.requestFullscreen().then(_ => fsrq = false);
+	}
+};
+
 var render = function(){
 
 	document.body.onkeyup = function(e){
 		if(e.keyCode == 32){
 			lighting=!lighting;
 		}
-	}
+	};
 
 	gl.uniform1i(gl.getUniformLocation(program, "lighting"),lighting);
 
